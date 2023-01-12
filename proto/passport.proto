@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+option go_package = "helloworld/proto";
+
+package proto;
+
+
+message GetMemberProfileByUidReq {
+  uint64 uid    = 1;
+  int32  option = 2;
+}
+message GetMemberProfileByUidReply {
+  uint64 uid            = 1;
+  string nick           = 2;
+}
+
+
+service Member {
+  rpc GetMemberProfileByUid(GetMemberProfileByUidReq) returns(GetMemberProfileByUidReply) {};
+}
