@@ -48,6 +48,7 @@ func (sc *PassportController) GetMemberProfileByUid(gctx *gin.Context) {
 	if err != nil {
 		log.Fatalf("could not greet: %v", err)
 	}
+	log.Printf("Greeting:uid %d,nick:%s", r.GetUid(), r.GetNick())
 	//  检查数据库并返回响应
 	gctx.JSON(http.StatusOK, gin.H{
 		"uid":  r.GetUid(),

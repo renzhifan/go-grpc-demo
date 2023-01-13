@@ -1,6 +1,7 @@
 package grpcconn
 
 import (
+	"helloworld/pkg/config"
 	"log"
 
 	"google.golang.org/grpc"
@@ -8,7 +9,7 @@ import (
 )
 
 func Connect() *grpc.ClientConn {
-	conn, err := grpc.Dial("localhost:50051", grpc.WithTransportCredentials(insecure.NewCredentials()))
+	conn, err := grpc.Dial(config.Get("grpc.host")+":"+config.Get("grpc.port"), grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
 		log.Fatalf("did not connect: %v", err)
 	}
