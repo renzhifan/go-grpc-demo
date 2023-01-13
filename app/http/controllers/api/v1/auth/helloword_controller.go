@@ -38,8 +38,8 @@ func (sc *HellowordController) SayHello(gctx *gin.Context) {
 		return
 	}
 
-	defer grpcconn.Conn.Close()
-	c := pb.NewGreeterClient(grpcconn.Conn)
+	defer grpcconn.Connect().Close()
+	c := pb.NewGreeterClient(grpcconn.Connect())
 
 	// Contact the server and print out its response.
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)

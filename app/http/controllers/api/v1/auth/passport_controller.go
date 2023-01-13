@@ -38,8 +38,8 @@ func (sc *PassportController) GetMemberProfileByUid(gctx *gin.Context) {
 		// 出错了，中断请求
 		return
 	}
-	defer grpcconn.Conn.Close()
-	c := pb.NewMemberClient(grpcconn.Conn)
+	defer grpcconn.Connect().Close()
+	c := pb.NewMemberClient(grpcconn.Connect())
 
 	// Contact the server and print out its response.
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)

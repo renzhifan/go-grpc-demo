@@ -15,9 +15,6 @@ func main() {
 	// 初始化路由绑定
 	bootstrap.SetupRoute(router)
 
-	//初始化grpc连接
-	bootstrap.SetupGrpcConnect()
-
 	// 运行服务
 	err := router.Run(":3000")
 	if err != nil {
