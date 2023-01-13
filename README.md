@@ -27,6 +27,38 @@ protoc --go_out=. --go_opt=paths=source_relative \
     ./proto/helloworld.proto
 ```
 
+## 测试
+启动服务
+```shell
+go run server/server.go
+```
+客户端发送请求
+
+```shell
+curl --location --request POST 'http://localhost:3000/v1/auth/SayHello' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "name": "北京你好"
+}'
+```
+返回数据
+```json
+{"exist":"Hello 北京你好"}
+```
+
+```shell
+curl --location --request POST 'http://localhost:3000/v1/auth/GetMemberProfileByUid' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "uid": 11333,
+    "option":11
+}'
+```
+返回数据
+```json
+{"nick":"hhh","uid":11333}
+```
+
 
 
 
