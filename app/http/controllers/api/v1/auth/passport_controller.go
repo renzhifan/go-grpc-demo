@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	v1 "helloworld/app/http/controllers/api/v1"
+	"helloworld/pkg/grpcconn"
 	"log"
 	"net/http"
 	"time"
@@ -11,9 +12,6 @@ import (
 	"github.com/gin-gonic/gin"
 
 	pb "helloworld/proto"
-
-	"google.golang.org/grpc"
-	"google.golang.org/grpc/credentials/insecure"
 )
 
 type PassportController struct {
@@ -40,13 +38,8 @@ func (sc *PassportController) GetMemberProfileByUid(gctx *gin.Context) {
 		// 出错了，中断请求
 		return
 	}
-
-	conn, err := grpc.Dial(*v1.Addr, grpc.WithTransportCredentials(insecure.NewCredentials()))
-	if err != nil {
-		log.Fatalf("did not connect: %v", err)
-	}
-	defer conn.Close()
-	c := pb.NewMemberClient(conn)
+	defer grpcconn.Conn.Close()
+	c := pb.NewMemberClient(grpcconn.Conn)
 
 	// Contact the server and print out its response.
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
