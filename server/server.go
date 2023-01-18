@@ -10,6 +10,7 @@ import (
 	pb "helloworld/proto"
 
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/reflection"
 )
 
 var (
@@ -26,6 +27,8 @@ func main() {
 	pb.RegisterGreeterServer(s, &controller.HelloworldService{})
 	pb.RegisterMemberServer(s, &controller.PassportService{})
 	log.Printf("server listening at %v", lis.Addr())
+	reflection.Register(s)
+
 	if err := s.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v", err)
 	}
